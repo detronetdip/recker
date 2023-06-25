@@ -10,9 +10,9 @@ function Auth() {
       const account = new Account(client);
       const res = await account.createOAuth2Session(
         "google",
-        "http://localhost:5173/"
+        "https://recker.vercel.app/"
       );
-      console.log(res.$id)
+      console.log(res.$id);
     } catch (error) {
       navigate("/auth");
     }
@@ -20,6 +20,11 @@ function Auth() {
   return (
     <>
       <div className="auth-container">
+        <div className="logo">
+          <img src="/android-chrome-512x512.png" alt="" />
+          <h4>Welcome to Recker!</h4>
+          <span>Your personal <b>REC</b>ord tra<b>CKER</b></span>
+        </div>
         <div className="form">
           <div className="google-btn" onClick={loginWithGoogle}>
             <div className="google-icon-wrapper">
