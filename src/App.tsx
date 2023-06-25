@@ -7,10 +7,10 @@ import Auth from "./pages/Auth";
 import Welcome from "./pages/Welcome";
 
 function App() {
-  window.onbeforeunload = function () {
-    localStorage.removeItem("userId");
-    return "";
-  };
+  // window.onbeforeunload = function () {
+  //   localStorage.removeItem("userId");
+  //   return "";
+  // };
   return (
     <>
       <Routes>
