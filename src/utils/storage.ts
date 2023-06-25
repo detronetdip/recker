@@ -46,4 +46,20 @@ const getFile = (key: string) => {
   return storage.getFilePreview(import.meta.env.VITE_APPWRITE_BUCKET, key);
 };
 
-export { createUserName, uploadFile, getDocuments, getFile, listDocuments };
+const deleteDocument = (id: string) => {
+  const db = new Databases(client);
+  return db.deleteDocument(
+    import.meta.env.VITE_APPWRITE_DATABASE,
+    import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
+    id
+  );
+};
+
+export {
+  createUserName,
+  uploadFile,
+  getDocuments,
+  getFile,
+  listDocuments,
+  deleteDocument,
+};

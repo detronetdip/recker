@@ -3,10 +3,10 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 // @ts-ignore
-import {Query} from 'appwrite';
+import { Query } from "appwrite";
 // @ts-ignore
 import { UilTrashAlt } from "@iconscout/react-unicons";
-import { listDocuments } from "../utils/storage";
+import { deleteDocument, listDocuments } from "../utils/storage";
 
 function History() {
   const [history, setHistory] = useState<any>([]);
@@ -18,6 +18,7 @@ function History() {
           import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
           [Query.equal("userId", [userId])]
         );
+        console.log(data);
         setHistory(data.documents);
       } catch (error) {
         console.log(error);
@@ -27,8 +28,8 @@ function History() {
   }, []);
   const deleteRecord = async (key: string) => {
     try {
-      
-      setHistory(history.filter((h: { date: string }) => h.date != key));
+      await deleteDocument(key);
+      setHistory(history.filter((h: { $id: string }) => h.$id != key));
     } catch (error) {
       console.log(error);
     }
@@ -47,12 +48,10 @@ function History() {
                   Score: <b>{h.score}</b>
                 </span>
               </div>
-              <div className="bottom">
-                {moment(h.date).format("l, hh:mm")}
-              </div>
+              <div className="bottom">{moment(h.date).format("l, hh:mm")}</div>
             </div>
             <div className="right">
-              <span onClick={() => deleteRecord(h.date)}>
+              <span onClick={() => deleteRecord(h.$id)}>
                 <UilTrashAlt />
               </span>
             </div>

@@ -35,7 +35,7 @@ function HomePage() {
       const userId = localStorage.getItem("userId");
       const data = await listDocuments(
         import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
-        [Query.equal("userId", [userId])]
+        [Query.equal("userId", [userId]), Query.orderAsc("date")]
       );
 
       const ref = [],
