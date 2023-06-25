@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AllPages from "./pages/AllPages";
 function App() {
   return (
     <>
