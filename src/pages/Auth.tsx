@@ -10,7 +10,7 @@ function Auth() {
       const account = new Account(client);
       const res = await account.createOAuth2Session(
         "google",
-        "http://localhost:5173/"
+        "https://recker.vercel.app/"
       );
       console.log(res.$id)
     } catch (error) {
