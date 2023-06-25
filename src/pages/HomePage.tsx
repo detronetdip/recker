@@ -40,7 +40,11 @@ function HomePage() {
         const file = await getFile(userId || "");
         setPic(file.href);
       } catch (error) {
-        navigate("/welcome");
+        if(localStorage.getItem('userId')){
+          navigate("/welcome");
+        }else{
+          navigate("/auth");
+        }
       }
     };
     getData();
