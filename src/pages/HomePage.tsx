@@ -16,12 +16,13 @@ import {
 import { useNavigate } from "react-router";
 //@ts-ignore
 import { Query } from "appwrite";
-import { getDocuments, getFile, listDocuments } from "../utils/storage";
+import { listDocuments } from "../utils/storage";
+import { useRecoilValue } from "recoil";
+import { userDetails } from "../context";
 
 function HomePage() {
+  const user = useRecoilValue(userDetails);
   const navigate = useNavigate();
-  const [pic, setPic] = useState("");
-  const [name, setName] = useState("user");
   const [data, setData] = useState<
     { date: string; Total: number; Score: number }[]
   >([]);
@@ -29,71 +30,51 @@ function HomePage() {
     { date: string; Percentage: number }[]
   >([]);
 
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        await getDocuments(
-          import.meta.env.VITE_APPWRITE_USER_COLLECTION,
-          userId || ""
-        );
-        const file = await getFile(userId || "");
-        setPic(file.href);
-      } catch (error) {
-        if(localStorage.getItem('userId')){
-          navigate("/welcome");
-        }else{
-          navigate("/auth");
-        }
-      }
-    };
-    getData();
-  }, []);
-  useEffect(() => {
-    const getData = async () => {
-      try {
-        const userId = localStorage.getItem("userId");
-        const res = await getDocuments(
-          import.meta.env.VITE_APPWRITE_USER_COLLECTION,
-          userId || ""
-        );
-        setName(res.name);
-        const data = await listDocuments(
-          import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
-          [Query.equal("userId", [userId])]
-        );
+  const getDataForGraph = async () => {
+    try {
+      const userId = localStorage.getItem("userId");
+      const data = await listDocuments(
+        import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
+        [Query.equal("userId", [userId])]
+      );
 
-        const ref = [],
-          refPercen = [];
-        for (const e of data.documents) {
-          ref.push({
-            date: `${moment(e.date).format("l, h:mm")}`,
-            Total: +e.total,
-            Score: +e.score,
-          });
-          refPercen.push({
-            date: `${moment(e.date).format("l, h:mm")}`,
-            Percentage: Math.round((+e.score * 100) / +e.total),
-          });
-        }
-        setData(ref);
-        setPercentageData(refPercen);
-      } catch (error) {
-        console.log("error", error);
+      const ref = [],
+        refPercen = [];
+      for (const e of data.documents) {
+        ref.push({
+          date: `${moment(e.date).format("l, h:mm")}`,
+          Total: +e.total,
+          Score: +e.score,
+        });
+        refPercen.push({
+          date: `${moment(e.date).format("l, h:mm")}`,
+          Percentage: Math.round((+e.score * 100) / +e.total),
+        });
       }
+      setData(ref);
+      setPercentageData(refPercen);
+    } catch (error) {
+      console.log("not found");
+    }
+  };
+
+  useEffect(() => {
+    const handler = async () => {
+      await getDataForGraph();
     };
-    getData();
+    handler();
   }, []);
+
   return (
     <>
       <div className="home">
         <div className="profile-bar">
           <div className="profile-icon">
-            <img src={pic ? pic : "/user.png"} alt="profile" />
+            <img src={user.img ? user.img : "/user.png"} alt="profile" />
           </div>
         </div>
         <div className="welcome-message">
-          <h6>Hello, {name.split(" ")[0]} !</h6>
+          <h6>Hello, {user.name && user.name.split(" ")[0]} !</h6>
           <h4>{moment().format("dddd, Do")}</h4>
         </div>
         <div className="progress">
