@@ -1,21 +1,24 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { IndexedDBStorage } from "../utils/storage";
 import moment from "moment";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import {Query} from 'appwrite';
 // @ts-ignore
 import { UilTrashAlt } from "@iconscout/react-unicons";
+import { listDocuments } from "../utils/storage";
 
 function History() {
   const [history, setHistory] = useState<any>([]);
   useEffect(() => {
     const handler = async () => {
       try {
-        const db = new IndexedDBStorage("record", "scores");
-        await db.openDatabase();
-        const data = await db.getAllData();
-        db.closeDatabase();
-        setHistory(data);
+        const userId = localStorage.getItem("userId");
+        const data = await listDocuments(
+          import.meta.env.VITE_APPWRITE_DATA_COLLECTION,
+          [Query.equal("userId", [userId])]
+        );
+        setHistory(data.documents);
       } catch (error) {
         console.log(error);
       }
@@ -24,10 +27,7 @@ function History() {
   }, []);
   const deleteRecord = async (key: string) => {
     try {
-      const db = new IndexedDBStorage("record", "scores");
-      await db.openDatabase();
-      await db.deleteData(key);
-      db.closeDatabase();
+      
       setHistory(history.filter((h: { date: string }) => h.date != key));
     } catch (error) {
       console.log(error);
@@ -47,7 +47,9 @@ function History() {
                   Score: <b>{h.score}</b>
                 </span>
               </div>
-              <div className="bottom">{moment(h.date,'MMMM Do YYYY, h:mm:ss a').format("l, hh:mm")}</div>
+              <div className="bottom">
+                {moment(h.date).format("l, hh:mm")}
+              </div>
             </div>
             <div className="right">
               <span onClick={() => deleteRecord(h.date)}>
