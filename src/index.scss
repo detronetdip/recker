@@ -48,3 +48,18 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+.watermark{
+  color: #888;
+  font-size: 0.8rem;
+  text-align: center;
+  span{
+    color: #e8f2fd;
+  }
+}
+
+.v{
+  text-decoration: underline;
+  display: inline-block;
+  padding-bottom: 0.4rem;
+}

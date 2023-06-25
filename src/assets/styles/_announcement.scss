@@ -1,0 +1,73 @@
+.announcement-container {
+  position: fixed;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.027);
+  backdrop-filter: blur(9px);
+  width: 100vw;
+  z-index: 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .notice-board {
+    border: thin solid rgba(255, 255, 255, 0.1);
+    background-color: $primary;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 80%;
+    .toprow {
+      height: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        height: 900%;
+        position: relative;
+        top: -20px;
+        left: 9px;
+      }
+    }
+    .content {
+      h4 {
+        padding-top: 0.9rem;
+        text-align: center;
+        font-size: 1.6rem;
+      }
+      p {
+        padding-top: 0.8rem;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        a {
+          color: $btn-bg;
+        }
+        span {
+          display: inline-block;
+          padding: 0.2rem 1rem;
+          background-color: $btn-bg;
+          border-radius: 15px;
+        }
+        &:last-child {
+          span {
+            background-color: transparent;
+          }
+        }
+      }
+    }
+    .btnrow {
+      padding-top: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      button {
+        outline: none;
+        background-color: $btn-bg;
+        padding: 0.3rem 1rem;
+        color: #fff;
+        &:active {
+          transform: translateY(1px);
+        }
+      }
+    }
+  }
+}

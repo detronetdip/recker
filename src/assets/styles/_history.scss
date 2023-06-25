@@ -1,0 +1,30 @@
+.history-container{
+    padding: 0.8rem;
+    .history{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border: thin solid $border;
+        background-color: $primary;
+        padding: 0.8rem;
+        border-radius: 8px;
+        margin: 0.4rem 0;
+        .left{
+            .top{
+                span{
+                    margin-right: 1.2rem;
+                    color: $secondary;
+                    b{
+                        color: #fff;
+                    }
+                }
+            }
+            .bottom{
+                color: $secondary;
+                margin-top: 0.3rem;
+                padding-top: 0.6rem;
+                font-size: 0.8rem;
+            }
+        }
+    }
+}

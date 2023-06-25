@@ -1,0 +1,61 @@
+.welcome-container {
+  padding: 1.4rem;
+  h3 {
+    text-align: center;
+    font-size: 1.8rem;
+    padding-bottom: 0.8rem;
+  }
+  h6 {
+    text-align: center;
+    color: $secondary;
+    font-size: 0.8rem;
+  }
+  form {
+    padding-top: 2rem;
+    .profile-pic {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 2rem;
+      .img {
+        position: relative;
+        max-height: 10rem;
+        max-width: 10rem;
+
+        img {
+          height: 100%;
+          width: 100%;
+        }
+        label {
+          position: absolute;
+          background-color: $primary;
+          top: 60%;
+          right: -6%;
+          height: 3rem;
+          width: 3rem;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+    input{
+        outline: none;
+        border-radius: 8px;
+        background-color: $primary;
+        border: thin solid $border;
+        padding: 1rem;
+        width: 100%;
+        color: $white;
+    }
+    button{
+        width: 100%;
+        margin-top: 2rem;
+        background-color: $btn-bg;
+        color: $white;
+        user-select: none;
+        cursor: pointer;
+    }
+  }
+}
