@@ -40,22 +40,40 @@
         }
       }
     }
-    input{
-        outline: none;
-        border-radius: 8px;
-        background-color: $primary;
-        border: thin solid $border;
-        padding: 1rem;
-        width: 100%;
-        color: $white;
+    input {
+      outline: none;
+      border-radius: 8px;
+      background-color: $primary;
+      border: thin solid $border;
+      padding: 1rem;
+      width: 100%;
+      color: $white;
     }
-    button{
-        width: 100%;
-        margin-top: 2rem;
-        background-color: $btn-bg;
-        color: $white;
-        user-select: none;
-        cursor: pointer;
+    button {
+      width: 100%;
+      margin-top: 2rem;
+      background-color: $btn-bg;
+      color: $white;
+      user-select: none;
+      overflow: hidden;
+      cursor: pointer;
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+       svg{
+        animation: spin 1s linear infinite;
+       }
+      }
     }
+  }
+}
+
+@keyframes spin {
+  0%{
+    transform: rotate(0deg);
+  }
+  100%{
+    transform: rotate(360deg);
   }
 }

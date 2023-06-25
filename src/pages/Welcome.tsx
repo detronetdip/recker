@@ -59,7 +59,9 @@ function Welcome() {
           <div className="btnrow">
             {isLoading ? (
               <button disabled>
-                <UilSpinnerAlt />
+                <span>
+                  <UilSpinnerAlt />
+                </span>
               </button>
             ) : (
               <button>Save</button>
